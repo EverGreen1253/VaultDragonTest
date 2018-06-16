@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ajax Post Tester</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+		}
+
+		section {
+			padding: 10px;
+		}
+
+		input {
+			margin-bottom: 5px;
+		}
+
+		button {
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<section id="post">
+		<input class="key" type="text" placeholder="key" />
+		<input class="value" type="text" placeholder="value" />
+		<button>Test POST Request</button>
+	</section>
+	<section id="output">
+	</section>
+</body>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script>
+		$('#post button').on('click', function(){
+			$('#output').html('');
+
+			var obj_key = $('#post input.key').val();
+			var obj_value = $('#post input.value').val();
+
+			if ((obj_key.trim() != '')&&(obj_value.trim() != ''))
+			{
+				obj_data = {};
+				obj_data[obj_key] = obj_value;
+
+				$.ajax({
+					method: "POST",
+					//url: "http://localhost/object/",
+					url: "http://13.229.151.128/object/",
+					data: obj_data
+				})
+				.done(function(resp) {
+					$('#output').html(resp);
+				})
+				.fail(function(resp) {
+					$('#output').html(resp);
+				});
+			}
+		});
+	</script>
+</html>
